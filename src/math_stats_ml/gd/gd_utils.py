@@ -1,4 +1,5 @@
 import torch
+import matplotlib.pyplot as plt
 from dataclasses import dataclass
 
 @dataclass
@@ -35,3 +36,80 @@ class GD_output:
             print_string += f'\n\nper-epoch mean objectives:\n{self.per_epoch_objectives}'
             print_string += f'\n\nepochs began/completed on the follow gradient steps:\n{self.epoch_step_nums}'
             return print_string
+
+
+def plot_gd(gd_output,
+            w=5,
+            h=4,
+            plot_title=True,
+            parameter_title=True,
+            show_xlabel=True,
+            xlabel='gradient steps',
+            show_ylabel=True,
+            ylabel='surprisal',
+            alpha=1,
+            color=None,
+            ax=None):
+    if ax == None:
+        ax = plt.axes()
+        plt.gcf().set_size_inches(w=w, h=h)
+    ax.plot(gd_output.grad_steps, gd_output.per_step_objectives, alpha=alpha, color=color)
+    if show_xlabel:
+        ax.set_xlabel(xlabel)
+    if show_ylabel:
+        ax.set_ylabel(ylabel)
+    if plot_title | parameter_title:
+        plot_title_string = f'gradient descent'
+        parameter_title_string = f'$\\alpha={gd_output.lr}$, $\\beta={gd_output.decay_rate}$'
+        if plot_title & parameter_title:
+            title_string = plot_title_string + '\n' + parameter_title_string
+            ax.set_title(title_string)
+        elif plot_title:
+            ax.set_title(plot_title_string)
+        else:
+            ax.set_title(parameter_title_string)
+
+
+def plot_sgd(sgd_output,
+             w=5,
+             h=4,
+             plot_title=True,
+             parameter_title=True,
+             show_step=True,
+             show_epoch=True,
+             show_xlabel=True,
+             xlabel='gradient steps',
+             show_ylabel=True,
+             ylabel='cross entropy',
+             legend=True,
+             per_step_alpha=0.25,
+             per_step_color=None,
+             per_step_label='cross entropy per step',
+             per_epoch_color=None,
+             per_epoch_label='mean cross entropy per epoch',
+             s=10,
+             ax=None):
+    if ax == None:
+        ax = plt.axes()
+        plt.gcf().set_size_inches(w=w, h=h)
+    if show_step:
+        ax.plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=per_step_alpha, color=per_step_color, label=per_step_label)
+    if show_epoch:
+        ax.plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, color=per_epoch_color, label=per_epoch_label)
+        ax.scatter(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, color=per_epoch_color, s=s, zorder=3)
+    if show_xlabel:
+        ax.set_xlabel(xlabel)
+    if show_ylabel:
+        ax.set_ylabel(ylabel)
+    if plot_title | parameter_title:
+        plot_title_string = f'gradient descent'
+        parameter_title_string = f'$\\alpha={sgd_output.lr}$, $\\beta={sgd_output.decay_rate}$, $k={sgd_output.batch_size}$, $N={sgd_output.num_epochs}$'
+        if plot_title & parameter_title:
+            title_string = plot_title_string + '\n' + parameter_title_string
+            ax.set_title(title_string)
+        elif plot_title:
+            ax.set_title(plot_title_string)
+        else:
+            ax.set_title(parameter_title_string)
+    if legend:
+        ax.legend()

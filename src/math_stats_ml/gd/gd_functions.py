@@ -39,6 +39,7 @@ def GD(J, init_parameters, lr, num_steps, decay_rate=0):
                        per_step_objectives=objectives,
                        lr=lr,
                        num_steps=num_steps,
+                       grad_steps=range(len(objectives)),
                        decay_rate=decay_rate,
                        type_flag='gd')
     return output
