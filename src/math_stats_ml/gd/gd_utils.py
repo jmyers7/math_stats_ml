@@ -102,7 +102,7 @@ def plot_sgd(sgd_output,
     if show_ylabel:
         ax.set_ylabel(ylabel)
     if plot_title | parameter_title:
-        plot_title_string = f'gradient descent'
+        plot_title_string = f'stochastic gradient descent'
         parameter_title_string = f'$\\alpha={sgd_output.lr}$, $\\beta={sgd_output.decay_rate}$, $k={sgd_output.batch_size}$, $N={sgd_output.num_epochs}$'
         if plot_title & parameter_title:
             title_string = plot_title_string + '\n' + parameter_title_string
