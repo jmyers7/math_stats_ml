@@ -10,12 +10,12 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
 
 **Table of contents**:
 
-1. `gd` submodule: Gradient descent utilities
+1. [`gd` submodule: Gradient descent utilities](#gd-submodule-gradient-descent-utilities)
     * [`GD_output`: Container class for output of algorithms](#gd_output-container-class-for-output-of-algorithms)
     * [`GD`: Gradient descent](#gd-gradient-descent)
     * [`SGD`: Stochastic gradient descent](#sgd-stochastic-gradient-descent)
 
-## `gd`: Gradient descent utilities
+## `gd` submodule: Gradient descent utilities
 
 ### `GD_output`: Container class for output of algorithms
 
