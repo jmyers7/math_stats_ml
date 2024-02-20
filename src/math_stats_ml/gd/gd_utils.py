@@ -4,7 +4,6 @@ from dataclasses import dataclass
 @dataclass
 class GD_output:
     parameters: dict = None
-    objectives: torch.Tensor = None
     per_step_objectives: torch.Tensor = None
     per_epoch_objectives: torch.Tensor = None
     epoch_step_nums: torch.Tensor = None

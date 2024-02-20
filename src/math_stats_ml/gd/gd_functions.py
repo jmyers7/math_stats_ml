@@ -36,7 +36,7 @@ def GD(J, init_parameters, lr, num_steps, decay_rate=0):
         running_parameters[key] = torch.row_stack(running_parameters[key])
     objectives = torch.stack(objectives)
     output = GD_output(parameters=running_parameters,
-                       objectives=objectives,
+                       per_step_objectives=objectives,
                        lr=lr,
                        num_steps=num_steps,
                        decay_rate=decay_rate,
