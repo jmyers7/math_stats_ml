@@ -17,13 +17,15 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
 
 ## Gradient descent utilities (`gd`)
 
+### Container class for output of algorithms (`GD_output`)
+
 ```python 
 class GD_output
 ```
 
 A class holding the outputs of both the gradient descent ([`GD`](#gradient-descent-gd)) and stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) functions. All attributes below are optional and default to `None`.
 
-### Attributes
+#### Attributes
 
 
 Name | Type | Description
@@ -40,8 +42,6 @@ Name | Type | Description
 | `num_epochs` | `int` | Number of epochs for the stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithm.
 | `max_steps` | `int` | Maximum number of gradient steps after which we terminate the stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithm.
 | `type_flag` | `str` | Either `None` or `gd`. In the latter case, indicates whether the `GD_output` object was obtained from the gradient descent ([`GD`](#gradient-descent-gd)) algorithm.
-
-### Container class for output of algorithms (`GD_output`)
 
 ### Gradient descent (`GD`)
 
