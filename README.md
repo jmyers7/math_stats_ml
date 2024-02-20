@@ -27,7 +27,6 @@ A class holding the outputs of both the gradient descent ([`GD`](#gradient-desce
 
 #### Attributes
 
-
 Name | Type | Description
 | :- | :- | :- |
 |`parameters`| `dict` | A dictionary containing the parameters of the objective function passed to either [`GD`](#gradient-descent-gd) or [`SGD`](#stochastic-gradient-descent-sgd).
@@ -45,4 +44,51 @@ Name | Type | Description
 
 ### Gradient descent (`GD`)
 
+```python
+GD(J, init_parameters, lr, num_steps, decay_rate=0)
+```
+
+Implementation of gradient descent. The notation below is intended to match the notation in the description in the book [here](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#gd-alg).
+
+#### Output
+
+The output type is an object of the [`GD_output` class](#container-class-for-output-of-algorithms-gd_output).
+
+#### Parameters
+
+Name | Type | Description
+| :- | :- | :- |
+| `J` | function | Objective function to be minimized. The parameters of the function are either a single tensor or a dictionary of tensors (in the case that the parameters fall into natural groups, e.g., weights and biases).
+| `init_parameters` | `torch.Tensor` or `dict` | Initial parameters.
+| `lr` | `float` | Learning rate, corresponding to $\alpha$ in the book.
+| `num_steps` | `int` | The number of gradient steps after which the algorithm should halt, corresponding to $N$ in the book.
+| `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to $0$.
+
+
 ### Stochastic gradient descent (`SGD`)
+
+```python
+SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
+```
+
+Implementation of stochastic gradient descent. The notation below is intended to match the notation in the description in the book [here](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
+
+#### Output
+
+The output type is an object of the [`GD_output` class](#container-class-for-output-of-algorithms-gd_output).
+
+#### Parameters
+
+Name | Type | Description
+| :- | :- | :- |
+| `g` | function | Component of the stochastic objective function to be minimized. (The notation is intended to match the notation in the book.) The call signature of the function is of the form `g(X, parameters)` or `g(X, y, parameters)`, where `X` and `y` are explained below, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors.
+| `init_parameters` | `torch.Tensor` or `dict` | Initial parameters.
+| `X` | `torch.Tensor` | Design matrix holding the dataset in its rows.
+| `lr` | `float` | Learning rate, corresponding to $\alpha$ in the book.
+| `batch_size` | `int` | Mini-batch size, corresponding to $k$ in the book.
+| `num_epochs` | `int` | The number of epochs after which the algorithm should halt, corresponding to $N$ in the book.
+| `y` | `torch.Tensor` | Ground truth labels for the data in the design matrix `X`. Optional.
+| `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to $0$.
+| `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to $-1$, in which case the algorithm will complete all `num_epochs` many epochs.
+| `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
+| `random_state` | `int` | If not `None` and `shuffle=True`, random seed to be passed to `torch.manual_seed`. Defaults to `None`.
