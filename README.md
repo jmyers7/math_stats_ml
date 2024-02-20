@@ -91,6 +91,6 @@ Name | Type | Description
 | `num_epochs` | `int` | The number of epochs after which the algorithm should halt, corresponding to $N$ in the book.
 | `y` | `torch.Tensor` | Ground truth labels for the data in the design matrix `X` (relevant only for discriminative models). Optional, defaults to `None`.
 | `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to $0$.
-| `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to $-1$, in which case the algorithm will complete all `num_epochs` many epochs.
+| `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to `-1`, in which case the algorithm will complete all `num_epochs` many epochs.
 | `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
 | `random_state` | `int` | If not `None` and `shuffle=True`, random seed to be passed to `torch.manual_seed`. Defaults to `None`.
