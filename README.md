@@ -23,7 +23,7 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
 class GD_output
 ```
 
-A class holding the outputs of both the gradient descent ([`GD`](#gradient-descent-gd)) and stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) functions. All attributes below are optional and default to `None`.
+A class holding the outputs of both the gradient descent ([`GD`](#gradient-descent-gd)) and stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithms. All attributes below are optional and default to `None`.
 
 #### Attributes
 
