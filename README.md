@@ -81,7 +81,7 @@ The output type is an object of the [`GD_output` class](#container-class-for-out
 
 Name | Type | Description
 | :- | :- | :- |
-| `g` | function | Component of the stochastic objective function to be minimized. (The notation is intended to match the notation in the book.) The call signature of the function is of the form `g(X, parameters)` or `g(X, y, parameters)`, where `X` and `y` are explained below, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors.
+| `g` | function | Summand of the stochastic objective function to be minimized. (The notation is intended to match the notation in the book. See the link above.) The call signature of the function is of the form `g(X, parameters)` or `g(X, y, parameters)`, where `X` and `y` are explained below, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors.
 | `init_parameters` | `torch.Tensor` or `dict` | Initial parameters.
 | `X` | `torch.Tensor` | Design matrix holding the dataset in its rows.
 | `lr` | `float` | Learning rate, corresponding to $\alpha$ in the book.
