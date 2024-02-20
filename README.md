@@ -17,6 +17,8 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
 
 ## `gd` submodule: Gradient descent utilities
 
+Contains all utilities for the gradient descent algorithms used in [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html).
+
 ### `GD_output` class: Container class for output of algorithms
 
 ```python 
@@ -48,7 +50,7 @@ Name | Type | Description
 GD(J, init_parameters, lr, num_steps, decay_rate=0)
 ```
 
-Implementation of gradient descent. The notation below is intended to match the notation in the description in the book [here](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#gd-alg).
+Implementation of gradient descent. The notation below is intended to match the notation in the description in [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#gd-alg).
 
 #### Output
 
@@ -71,7 +73,7 @@ Name | Type | Description
 SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
 ```
 
-Implementation of stochastic gradient descent. The notation below is intended to match the notation in the description in the book [here](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
+Implementation of stochastic gradient descent. The notation below is intended to match the notation in the description in [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
 
 #### Output
 
