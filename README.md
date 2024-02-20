@@ -14,6 +14,8 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
     * [`GD_output` class: Container class for output of algorithms](#gd_output-class-container-class-for-output-of-algorithms)
     * [`GD` function: Gradient descent](#gd-function-gradient-descent)
     * [`SGD` function: Stochastic gradient descent](#sgd-function-stochastic-gradient-descent)
+    * [`plot_gd` function: plot the output of gradient descent](#plot_gd-function-plot-the-output-of-gradient-descent)
+    * [`plot_sgd` function: plot the output of stochastic gradient descent](#plot_sgd-function-plot-the-output-of-stochastic-gradient-descent)
 
 ## `gd` submodule: Gradient descent utilities
 
@@ -94,3 +96,19 @@ Name | Type | Description
 | `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to `-1`, in which case the algorithm will complete all `num_epochs` many epochs.
 | `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
 | `random_state` | `int` | If not `None` and `shuffle=True`, random seed to be passed to `torch.manual_seed`. Defaults to `None`.
+
+### `plot_gd` function: plot the output of gradient descent
+
+```python
+plot_gd(gd_output, w=5, h=4, plot_title=True, parameter_title=True, show_xlabel=True, xlabel='gradient steps', show_ylabel=True, ylabel='surprisal', alpha=1, color=None, ax=None)
+```
+
+Later...
+
+### `plot_sgd` function: plot the output of stochastic gradient descent
+
+```python
+plot_sgd(sgd_output, w=5, h=4, plot_title=True, parameter_title=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel='gradient steps', show_ylabel=True, ylabel='cross entropy', legend=True, per_step_alpha=0.25, per_step_color=None, per_step_label='cross entropy per step', per_epoch_color=None, per_epoch_label='mean cross entropy per epoch', s=10, ax=None)
+```
+
+Later...
