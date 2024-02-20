@@ -29,7 +29,7 @@ A class holding the outputs of both the gradient descent ([`GD`](#gradient-desce
 
 Name | Type | Description
 | :- | :- | :- |
-|`parameters`| `dict` | A dictionary containing the parameters of the objective function passed to either [`GD`](#gradient-descent-gd) or [`SGD`](#stochastic-gradient-descent-sgd).
+|`parameters`| `dict` | A dictionary containing the parameters of the objective function passed to either [`GD`](#gradient-descent-gd) or [`SGD`](#stochastic-gradient-descent-sgd). Each value in the dictionary is a tensor whose zero-th dimension indexes the number of gradient steps.
 | `per_step_objectives` | `torch.Tensor` | A tensor containing the running objective values, per gradient step.
 | `per_epoch_objectives` | `torch.Tensor`| A tensor containing the running mean objective values, per epoch.
 | `epoch_step_nums` | `torch.Tensor` | A tensor containing the number of each gradient step on which an epoch begins/ends.
