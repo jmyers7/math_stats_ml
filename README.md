@@ -11,13 +11,13 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
 **Table of contents**:
 
 1. Gradient descent utilities (`gd` submodule)
-    * [Container class for output of algorithms (`GD_output`)](#container-class-for-output-of-algorithms-gd_output)
-    * [Gradient descent (`GD`)](#gradient-descent-gd)
-    * [Stochastic gradient descent (`SGD`)](#stochastic-gradient-descent-sgd)
+    * [`gd`: Gradient descent utilities](#gd_output-container-class-for-output-of-algorithms)
+    * [`GD`: Gradient descent](#gd-gradient-descent)
+    * [`SGD`: Stochastic gradient descent](#sgd-stochastic-gradient-descent)
 
-## Gradient descent utilities (`gd`)
+## `gd`: Gradient descent utilities
 
-### Container class for output of algorithms (`GD_output`)
+### `GD_output`: Container class for output of algorithms
 
 ```python 
 class GD_output
@@ -42,7 +42,7 @@ Name | Type | Description
 | `max_steps` | `int` | Maximum number of gradient steps after which we terminate the stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithm.
 | `type_flag` | `str` | Either `None` or `gd`. In the latter case, indicates whether the `GD_output` object was obtained from the gradient descent ([`GD`](#gradient-descent-gd)) algorithm.
 
-### Gradient descent (`GD`)
+### `GD`: Gradient descent
 
 ```python
 GD(J, init_parameters, lr, num_steps, decay_rate=0)
@@ -65,7 +65,7 @@ Name | Type | Description
 | `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to $0$.
 
 
-### Stochastic gradient descent (`SGD`)
+### `SGD`: Stochastic gradient descent
 
 ```python
 SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
