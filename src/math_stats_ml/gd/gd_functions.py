@@ -45,11 +45,12 @@ def GD(J, init_parameters, lr, num_steps, decay_rate=0):
     return output
 
 
-def SGD(g, init_parameters, X, lr, batch_size, num_epochs, decay_rate=0, max_steps=-1, shuffle=True, random_state=None):
+def SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None):
 
     if random_state != None:
         torch.manual_seed(random_state)
-    data_loader = DataLoader(dataset=X, batch_size=batch_size, shuffle=shuffle)
+    dataset = TensorDataset(X, y) if y != None else X
+    data_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle)
     num_mini_batches = len(data_loader)
     
     single_parameter = False
@@ -67,9 +68,11 @@ def SGD(g, init_parameters, X, lr, batch_size, num_epochs, decay_rate=0, max_ste
 
     for t in range(num_epochs):
         for i, mini_batch in enumerate(data_loader):
+            
+            input_parameters = list(parameters.values())[0] if single_parameter else parameters
 
             if first_step:
-                objective = g(mini_batch, **parameters).mean() if single_parameter else g(mini_batch, parameters).mean()
+                objective = g(*mini_batch, input_parameters).mean() if y != None else g(mini_batch, input_parameters).mean()
                 per_step_objectives.append(objective.detach())
                 per_epoch_objectives.append(objective.detach())
                 first_step = False
@@ -80,7 +83,7 @@ def SGD(g, init_parameters, X, lr, batch_size, num_epochs, decay_rate=0, max_ste
                 for parameter in parameters.values():
                     parameter -= lr * (1 - decay_rate) ** (1 + s) * parameter.grad
             
-            objective = g(mini_batch, **parameters).mean() if single_parameter else g(mini_batch, parameters).mean()
+            objective = g(*mini_batch, input_parameters).mean() if y != None else g(mini_batch, input_parameters).mean()
 
             per_step_objectives.append(objective.detach())
             for key in running_parameters.keys():

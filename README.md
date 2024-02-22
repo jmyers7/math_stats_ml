@@ -85,12 +85,13 @@ The output type is an object of the [`GD_output` class](#container-class-for-out
 
 Name | Type | Description
 | :- | :- | :- |
-| `g` | function | Summand of the stochastic objective function to be minimized. (The notation is intended to match the notation in the book. See the link above.) The call signature of the function is of the form `g(X, parameters)` where `X` is the design matrix (see below) and `parameters` is either a single parameter tensor or a dictionary of parameter tensors (in the case that the parameters fall into natural groups, e.g., weights and biases).
+| `g` | function | Summand of the stochastic objective function to be minimized. (The notation is intended to match the notation in the book. See the link above.) The call signature of the function is of the form `g(X, parameters)` or `g(X, y, parameters)`, where `X` is the design matrix, `y` is the vector of ground truth labels, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors (in the case that the parameters fall into natural groups, e.g., weights and biases).
 | `init_parameters` | `torch.Tensor` or `dict` | Initial parameters.
 | `X` | `torch.Tensor` | Design matrix holding the dataset in its rows.
 | `lr` | `float` | Learning rate, corresponding to $\alpha$ in the book.
 | `batch_size` | `int` | Mini-batch size, corresponding to $k$ in the book.
 | `num_epochs` | `int` | The number of epochs after which the algorithm should halt, corresponding to $N$ in the book.
+| `y` | `torch.Tensor` | Ground truth labels for the data in the design matrix `X`. Optional, defaults to `None`.
 | `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to `0`.
 | `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to `-1`, in which case the algorithm will complete all `num_epochs` many epochs.
 | `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
