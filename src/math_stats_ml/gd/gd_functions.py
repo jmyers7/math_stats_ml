@@ -12,34 +12,31 @@ def GD(J, init_parameters, lr, num_steps, decay_rate=0):
     parameters = {key: tensor.clone().requires_grad_() for key, tensor in init_parameters.items()}
     input_parameters = list(parameters.values())[0] if single_parameter else parameters
     objective = J(input_parameters)
-    objectives = [objective.detach()]
+    per_step_objectives = [objective.detach()]
     running_parameters = {key: [tensor.clone()] for key, tensor in init_parameters.items()}
 
     for t in range(num_steps):
 
         objective.backward()
-
         with torch.no_grad():
             for parameter in parameters.values():
                 parameter -= lr * (1 - decay_rate) ** (1 + t) * parameter.grad
+        for parameter in parameters.values():
+            parameter.grad.zero_()
+        for param_name in running_parameters.keys():
+            running_parameters[param_name].append(parameters[param_name].detach().clone())
 
         input_parameters = list(parameters.values())[0] if single_parameter else parameters
         objective = J(input_parameters)
-
-        objectives.append(objective.detach())
-        for key in running_parameters.keys():
-                running_parameters[key].append(parameters[key].detach().clone())
-        for parameter in parameters.values():
-            parameter.grad.zero_()
-
-    for key in running_parameters.keys():
-        running_parameters[key] = torch.row_stack(running_parameters[key])
-    objectives = torch.stack(objectives)
+        per_step_objectives.append(objective.detach())
+        
+    for param_name in running_parameters.keys():
+        running_parameters[param_name] = torch.stack(running_parameters[param_name], dim=0)
     output = GD_output(parameters=running_parameters,
-                       per_step_objectives=objectives,
+                       per_step_objectives=torch.stack(per_step_objectives),
                        lr=lr,
                        num_steps=num_steps,
-                       grad_steps=range(len(objectives)),
+                       grad_steps=range(len(per_step_objectives)),
                        decay_rate=decay_rate,
                        type_flag='gd')
     return output
@@ -58,10 +55,10 @@ def SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0,
         init_parameters = {'theta': init_parameters}
         single_parameter = True
     
-    parameters = {key: tensor.clone().requires_grad_() for key, tensor in init_parameters.items()}
+    parameters = {param_name: param.clone().requires_grad_() for param_name, param in init_parameters.items()}
     per_step_objectives = []
     per_epoch_objectives = []
-    running_parameters = {key: [tensor.clone()] for key, tensor in init_parameters.items()}
+    running_parameters = {param_name: [param.clone()] for param_name, param in init_parameters.items()}
     first_step = True
     s = 0
     epoch_step_nums = [0]
@@ -70,27 +67,24 @@ def SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0,
         for i, mini_batch in enumerate(data_loader):
             
             input_parameters = list(parameters.values())[0] if single_parameter else parameters
-
             if first_step:
-                objective = g(*mini_batch, input_parameters).mean() if y != None else g(mini_batch, input_parameters).mean()
+                objective = g(input_parameters, *mini_batch).mean() if y != None else g(input_parameters, mini_batch).mean()
                 per_step_objectives.append(objective.detach())
                 per_epoch_objectives.append(objective.detach())
                 first_step = False
 
             objective.backward()
-
             with torch.no_grad():
                 for parameter in parameters.values():
                     parameter -= lr * (1 - decay_rate) ** (1 + s) * parameter.grad
-            
-            objective = g(*mini_batch, input_parameters).mean() if y != None else g(mini_batch, input_parameters).mean()
-
-            per_step_objectives.append(objective.detach())
-            for key in running_parameters.keys():
-                running_parameters[key].append(parameters[key].detach().clone())
+            for param_name in running_parameters.keys():
+                running_parameters[param_name].append(parameters[param_name].detach().clone())
             for parameter in parameters.values():
                 parameter.grad.zero_()
-
+            
+            objective = g(input_parameters, *mini_batch).mean() if y != None else g(input_parameters, mini_batch).mean()
+            per_step_objectives.append(objective.detach())
+            
             complete_epoch = True if i + 1 == num_mini_batches else False
             s += 1
             if s == max_steps:
@@ -105,15 +99,12 @@ def SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0,
         if s == max_steps:
             break
 
-    for key in running_parameters.keys():
-        running_parameters[key] = torch.stack(running_parameters[key], dim=0)
-    per_step_objectives = torch.stack(per_step_objectives)
-    per_epoch_objectives = torch.stack(per_epoch_objectives)
-    epoch_step_nums = torch.tensor(epoch_step_nums)
+    for param_name in running_parameters.keys():
+        running_parameters[param_name] = torch.stack(running_parameters[param_name], dim=0)
     output = GD_output(parameters=running_parameters,
-                       per_step_objectives=per_step_objectives,
-                       per_epoch_objectives=per_epoch_objectives,
-                       epoch_step_nums=epoch_step_nums,
+                       per_step_objectives=torch.stack(per_step_objectives),
+                       per_epoch_objectives=torch.stack(per_epoch_objectives),
+                       epoch_step_nums=torch.tensor(epoch_step_nums),
                        grad_steps=range(len(per_step_objectives)),
                        lr=lr,
                        num_epochs=num_epochs,

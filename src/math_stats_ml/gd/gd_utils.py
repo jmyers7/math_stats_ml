@@ -24,7 +24,7 @@ class GD_output:
             print_string += f'\nlearning rate: {self.lr}, decay rate: {self.decay_rate}, gradient steps: {self.num_steps}'
             for key, parameter in self.parameters.items():
                 print_string += f'\n\nparameter {key}:\n{parameter}'
-            print_string += f'\n\nobjectives:\n{self.objectives}'
+            print_string += f'\n\nobjectives:\n{self.per_step_objectives}'
             return print_string
         else:
             print_string += 'STOCHASTIC GRADIENT DESCENT OUTPUT'
@@ -42,11 +42,12 @@ def plot_gd(gd_output,
             w=5,
             h=4,
             plot_title=True,
+            plot_title_string='gradient descent',
             parameter_title=True,
             show_xlabel=True,
             xlabel='gradient steps',
             show_ylabel=True,
-            ylabel='surprisal',
+            ylabel='objective',
             alpha=1,
             color=None,
             ax=None):
@@ -59,8 +60,7 @@ def plot_gd(gd_output,
     if show_ylabel:
         ax.set_ylabel(ylabel)
     if plot_title | parameter_title:
-        plot_title_string = f'gradient descent'
-        parameter_title_string = f'$\\alpha={gd_output.lr}$, $\\beta={gd_output.decay_rate}$'
+        parameter_title_string = f'$\\alpha=${gd_output.lr}, $\\beta=${gd_output.decay_rate}'
         if plot_title & parameter_title:
             title_string = plot_title_string + '\n' + parameter_title_string
             ax.set_title(title_string)
@@ -74,20 +74,21 @@ def plot_sgd(sgd_output,
              w=5,
              h=4,
              plot_title=True,
+             plot_title_string='stochastic gradient descent',
              parameter_title=True,
              show_step=True,
              show_epoch=True,
              show_xlabel=True,
              xlabel='gradient steps',
              show_ylabel=True,
-             ylabel='cross entropy',
-             legend=True,
+             ylabel='objective',
+             legend=False,
              per_step_alpha=0.25,
              per_step_color=None,
-             per_step_label='cross entropy per step',
+             per_step_label=None,
              per_epoch_color=None,
-             per_epoch_label='mean cross entropy per epoch',
-             s=10,
+             per_epoch_label=None,
+             s=50,
              ax=None):
     if ax == None:
         ax = plt.axes()
@@ -102,8 +103,7 @@ def plot_sgd(sgd_output,
     if show_ylabel:
         ax.set_ylabel(ylabel)
     if plot_title | parameter_title:
-        plot_title_string = f'stochastic gradient descent'
-        parameter_title_string = f'$\\alpha={sgd_output.lr}$, $\\beta={sgd_output.decay_rate}$, $k={sgd_output.batch_size}$, $N={sgd_output.num_epochs}$'
+        parameter_title_string = f'$\\alpha=${sgd_output.lr}, $\\beta=${sgd_output.decay_rate}, $k=${sgd_output.batch_size}, $N=${sgd_output.num_epochs}'
         if plot_title & parameter_title:
             title_string = plot_title_string + '\n' + parameter_title_string
             ax.set_title(title_string)

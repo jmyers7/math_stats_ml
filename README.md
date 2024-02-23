@@ -72,10 +72,10 @@ Name | Type | Description
 ### `SGD` function: Stochastic gradient descent
 
 ```python
-SGD(g, init_parameters, X, lr, batch_size, num_epochs, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
+SGD(g, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
 ```
 
-Implementation of stochastic gradient descent. The notation below is intended to match the notation in the description in [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
+Implementation of stochastic gradient descent. The notation and terminology below is intended to match [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
 
 #### Output
 
@@ -85,13 +85,13 @@ The output type is an object of the [`GD_output` class](#container-class-for-out
 
 Name | Type | Description
 | :- | :- | :- |
-| `g` | function | Summand of the stochastic objective function to be minimized. (The notation is intended to match the notation in the book. See the link above.) The call signature of the function is of the form `g(X, parameters)` or `g(X, y, parameters)`, where `X` is the design matrix, `y` is the vector of ground truth labels, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors (in the case that the parameters fall into natural groups, e.g., weights and biases).
+| `g` | function | Target function for the algorithm. (The notation and terminology is intended to match the book---see the link above.) The call signature of the function is of the form `g(parameters, x)` or `g(parameters, x, y)`, where `x` is a feature vector and `y` is an (optional) ground truth label of a single instance in the dataset, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors (in the case that the parameters fall into natural groups, e.g., weights and biases). We assume that `g` is "vectorized," so that it may accept a design matrix `X` in place of `x` and an entire vector of ground truth labels for `y`.
 | `init_parameters` | `torch.Tensor` or `dict` | Initial parameters.
-| `X` | `torch.Tensor` | Design matrix holding the dataset in its rows.
+| `X` | `torch.Tensor` | Design matrix. The rows are the feature vectors that are fed into the function `g`.
 | `lr` | `float` | Learning rate, corresponding to $\alpha$ in the book.
 | `batch_size` | `int` | Mini-batch size, corresponding to $k$ in the book.
 | `num_epochs` | `int` | The number of epochs after which the algorithm should halt, corresponding to $N$ in the book.
-| `y` | `torch.Tensor` | Ground truth labels for the data in the design matrix `X`. Optional, defaults to `None`.
+| `y` | `torch.Tensor` | Vector of ground truth labels for the data in the design matrix `X`. Optional, defaults to `None`.
 | `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to `0`.
 | `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to `-1`, in which case the algorithm will complete all `num_epochs` many epochs.
 | `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
