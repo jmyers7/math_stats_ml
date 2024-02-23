@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 import matplotlib.pyplot as plt
 from dataclasses import dataclass
 
@@ -39,6 +40,7 @@ class GD_output:
 
 
 def plot_gd(gd_output,
+            log=False,
             w=5,
             h=4,
             plot_title=True,
@@ -54,7 +56,8 @@ def plot_gd(gd_output,
     if ax == None:
         ax = plt.axes()
         plt.gcf().set_size_inches(w=w, h=h)
-    ax.plot(gd_output.grad_steps, gd_output.per_step_objectives, alpha=alpha, color=color)
+    per_step_objectives = np.log(gd_output.per_step_objectives) if log else gd_output.per_step_objectives
+    ax.plot(gd_output.grad_steps, per_step_objectives, alpha=alpha, color=color)
     if show_xlabel:
         ax.set_xlabel(xlabel)
     if show_ylabel:
@@ -71,6 +74,7 @@ def plot_gd(gd_output,
 
 
 def plot_sgd(sgd_output,
+             log=False,
              w=5,
              h=4,
              plot_title=True,
@@ -93,11 +97,13 @@ def plot_sgd(sgd_output,
     if ax == None:
         ax = plt.axes()
         plt.gcf().set_size_inches(w=w, h=h)
+    per_step_objectives = np.log(sgd_output.per_step_objectives) if log else sgd_output.per_step_objectives
+    per_epoch_objectives = np.log(sgd_output.per_epoch_objectives) if log else sgd_output.per_epoch_objectives
     if show_step:
-        ax.plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=per_step_alpha, color=per_step_color, label=per_step_label)
+        ax.plot(sgd_output.grad_steps, per_step_objectives, alpha=per_step_alpha, color=per_step_color, label=per_step_label)
     if show_epoch:
-        ax.plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, color=per_epoch_color, label=per_epoch_label)
-        ax.scatter(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, color=per_epoch_color, s=s, zorder=3)
+        ax.plot(sgd_output.epoch_step_nums, per_epoch_objectives, color=per_epoch_color, label=per_epoch_label)
+        ax.scatter(sgd_output.epoch_step_nums, per_epoch_objectives, color=per_epoch_color, s=s, zorder=3)
     if show_xlabel:
         ax.set_xlabel(xlabel)
     if show_ylabel:
