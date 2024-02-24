@@ -72,7 +72,7 @@ Name | Type | Description
 ### `SGD` function: Stochastic gradient descent
 
 ```python
-SGD(h, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
+SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
 ```
 
 Implementation of stochastic gradient descent. The notation and terminology below is intended to match [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
@@ -85,9 +85,9 @@ The output type is an object of the [`GD_output` class](#container-class-for-out
 
 Name | Type | Description
 | :- | :- | :- |
-| `h` | function | Target function for the algorithm. The call signature of the function is of the form `h(parameters, x)` or `h(parameters, x, y)`, where `x` is a feature vector and `y` is an (optional) ground truth label of a single instance in the dataset, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors (in the case that the parameters fall into natural groups, e.g., weights and biases). We assume that `h` is "vectorized," so that it may accept a design matrix `X` in place of `x` and an entire vector of ground truth labels for `y`.
+| `L` | function | Loss function for the algorithm. The call signature of the function is of the form `L(parameters, x)` or `L(parameters, x, y)`, where `x` is a feature vector and `y` is an (optional) ground truth label of a single instance in the dataset, and `parameters` is either a single parameter tensor or a dictionary of parameter tensors (in the case that the parameters fall into natural groups, e.g., weights and biases). We assume that `L` is "vectorized," so that it may accept a design matrix `X` in place of `x` and an entire vector of ground truth labels for `y`.
 | `init_parameters` | `torch.Tensor` or `dict` | Initial parameters.
-| `X` | `torch.Tensor` | Design matrix. The rows are the feature vectors that are fed into the function `h`.
+| `X` | `torch.Tensor` | Design matrix. The rows are the feature vectors that are fed into the loss function `L`.
 | `lr` | `float` | Learning rate, corresponding to $\alpha$ in the book.
 | `batch_size` | `int` | Mini-batch size, corresponding to $k$ in the book.
 | `num_epochs` | `int` | The number of epochs after which the algorithm should halt, corresponding to $N$ in the book.

@@ -42,7 +42,7 @@ def GD(J, init_parameters, lr, num_steps, decay_rate=0):
     return output
 
 
-def SGD(h, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None):
+def SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None):
 
     if random_state != None:
         torch.manual_seed(random_state)
@@ -68,7 +68,7 @@ def SGD(h, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0,
             
             input_parameters = list(parameters.values())[0] if single_parameter else parameters
             if first_step:
-                objective = h(input_parameters, *mini_batch).mean() if y != None else h(input_parameters, mini_batch).mean()
+                objective = L(input_parameters, *mini_batch).mean() if y != None else L(input_parameters, mini_batch).mean()
                 per_step_objectives.append(objective.detach())
                 per_epoch_objectives.append(objective.detach())
                 first_step = False
@@ -82,7 +82,7 @@ def SGD(h, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0,
             for parameter in parameters.values():
                 parameter.grad.zero_()
             
-            objective = h(input_parameters, *mini_batch).mean() if y != None else h(input_parameters, mini_batch).mean()
+            objective = L(input_parameters, *mini_batch).mean() if y != None else L(input_parameters, mini_batch).mean()
             per_step_objectives.append(objective.detach())
             
             complete_epoch = True if i + 1 == num_mini_batches else False
