@@ -100,15 +100,20 @@ Name | Type | Description
 ### `plot_gd` function: plot the output of gradient descent
 
 ```python
-plot_gd(gd_output, w=5, h=4, plot_title=True, parameter_title=True, show_xlabel=True, xlabel='gradient steps', show_ylabel=True, ylabel='surprisal', alpha=1, color=None, ax=None)
+plot_gd(gd_output, log=False, w=5, h=4, plot_title=True, plot_title_string='gradient descent',
+        parameter_title=True, show_xlabel=True, xlabel='gradient steps', show_ylabel=True,
+        ylabel='objective', alpha=1, color=None, ax=None)
 ```
 
-Later...
+Descriptions coming later...
 
 ### `plot_sgd` function: plot the output of stochastic gradient descent
 
 ```python
-plot_sgd(sgd_output, w=5, h=4, plot_title=True, parameter_title=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel='gradient steps', show_ylabel=True, ylabel='cross entropy', legend=True, per_step_alpha=0.25, per_step_color=None, per_step_label='cross entropy per step', per_epoch_color=None, per_epoch_label='mean cross entropy per epoch', s=10, ax=None)
+plot_sgd(sgd_output, log=False, w=5, h=4, plot_title=True, plot_title_string='stochastic gradient descent',
+         parameter_title=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel='gradient steps',
+         show_ylabel=True, ylabel='objective', legend=False, per_step_alpha=0.25, per_step_color=None,
+         per_step_label=None, per_epoch_color=None, per_epoch_label=None, s=50, ax=None)
 ```
 
-Later...
+Description coming later...
