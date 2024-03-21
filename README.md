@@ -15,7 +15,6 @@ All other materials are contained [here](https://github.com/jmyers7/stats-book-m
     * [`GD` function: Gradient descent](#gd-function-gradient-descent)
     * [`SGD` function: Stochastic gradient descent](#sgd-function-stochastic-gradient-descent)
     * [`plot_gd` function: plot the output of gradient descent](#plot_gd-function-plot-the-output-of-gradient-descent)
-    * [`plot_sgd` function: plot the output of stochastic gradient descent](#plot_sgd-function-plot-the-output-of-stochastic-gradient-descent)
 
 ## `gd` submodule: Gradient descent utilities
 
@@ -41,10 +40,12 @@ Name | Type | Description
 | `lr` | `float` | Learning rate.
 | `num_steps` | `int` | Number of gradient steps to run the gradient descent ([`GD`](#gradient-descent-gd)) algorithm.
 | `decay_rate` | `float` | Learning rate decay.
+| `beta1` | `float` | Hyperparameter for ADAM optimization algorithm.
+| `beta2` | `float` | Hyperparameter for ADAM optimization algorithm.
 | `batch_size` | `int` |Mini-batch size for the stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithm.
 | `num_epochs` | `int` | Number of epochs for the stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithm.
 | `max_steps` | `int` | Maximum number of gradient steps after which we terminate the stochastic gradient descent ([`SGD`](#stochastic-gradient-descent-sgd)) algorithm.
-| `type_flag` | `str` | Either `None` or `gd`. In the latter case, indicates whether the `GD_output` object was obtained from the gradient descent ([`GD`](#gradient-descent-gd)) algorithm.
+| `type_flag` | `str` | Either `gd`, `sgd`, or `adam` indicating the optimization algorithm.
 
 ### `GD` function: Gradient descent
 
@@ -72,10 +73,10 @@ Name | Type | Description
 ### `SGD` function: Stochastic gradient descent
 
 ```python
-SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
+SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None, kind='sgd', beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
 ```
 
-Implementation of stochastic gradient descent. The notation and terminology below is intended to match [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
+Implementation of both the vanilla stochastic gradient descent algorithm, and the ADAM optimization algorithm. The notation and terminology below is intended to match [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
 
 #### Output
 
@@ -92,6 +93,10 @@ Name | Type | Description
 | `batch_size` | `int` | Mini-batch size, corresponding to $k$ in the book.
 | `num_epochs` | `int` | The number of epochs after which the algorithm should halt, corresponding to $N$ in the book.
 | `y` | `torch.Tensor` | Vector of ground truth labels for the data in the design matrix `X`. Optional, defaults to `None`.
+| `kind` | `str` | Type of optimization algorithm. Either `sgd` (default) for vanilla stochastic gradient descent, or `adam` for the ADAM optimization algorithm.
+| `beta1` | `float` | Hyperparameter for the ADAM optimization algorithm. Defaults to `0.9`.
+| `beta2` | `float` | Hyperparameter for the ADAM optimization algorithm. Defaults to `0.999`.
+| `epsilon` | `float` | Hyperparameter for the ADAM optimization algorithm. Defaults to `1e-8`.
 | `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to `0`.
 | `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to `-1`, in which case the algorithm will complete all `num_epochs` many epochs.
 | `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
@@ -100,20 +105,7 @@ Name | Type | Description
 ### `plot_gd` function: plot the output of gradient descent
 
 ```python
-plot_gd(gd_output, log=False, w=5, h=4, plot_title=True, plot_title_string='gradient descent',
-        parameter_title=True, show_xlabel=True, xlabel='gradient steps', show_ylabel=True,
-        ylabel='objective', alpha=1, color=None, ax=None)
+plot_gd( gd_output, log=False, w=5, h=4, plot_title=True, plot_title_string="gradient descent", parameter_title=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel="gradient steps", show_ylabel=True, ylabel="objective", legend=False, per_step_alpha=0.25, per_step_color=None, per_step_label=None, per_epoch_color=None, per_epoch_label=None, ax=None)
 ```
 
 Descriptions coming later...
-
-### `plot_sgd` function: plot the output of stochastic gradient descent
-
-```python
-plot_sgd(sgd_output, log=False, w=5, h=4, plot_title=True, plot_title_string='stochastic gradient descent',
-         parameter_title=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel='gradient steps',
-         show_ylabel=True, ylabel='objective', legend=False, per_step_alpha=0.25, per_step_color=None,
-         per_step_label=None, per_epoch_color=None, per_epoch_label=None, s=50, ax=None)
-```
-
-Description coming later...
