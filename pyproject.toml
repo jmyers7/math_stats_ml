@@ -1,6 +1,6 @@
 [project]
 name = "math_stats_ml"
-version = "0.0.16"
+version = "0.0.17"
 authors = [
   { name="John Myers", email="jmmyers25@gmail.com" },
 ]
