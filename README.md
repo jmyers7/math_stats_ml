@@ -99,13 +99,38 @@ Name | Type | Description
 | `epsilon` | `float` | Hyperparameter for the ADAM optimization algorithm. Defaults to `1e-8`.
 | `decay_rate` | `float` | Learning rate decay, corresponding to $\beta$ in the book. Defaults to `0`.
 | `max_steps` | `int` | Maximum number of gradient steps after which the algorithm should halt. Defaults to `-1`, in which case the algorithm will complete all `num_epochs` many epochs.
-| `shuffle` | `bool` | Determines whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
+| `shuffle` | `bool` | Boolean indicator whether to shuffle the dataset before looping through an epoch. Defaults to `True`.
 | `random_state` | `int` | If not `None` and `shuffle=True`, random seed to be passed to `torch.manual_seed`. Defaults to `None`.
 
 ### `plot_gd` function: plot the output of gradient descent
 
 ```python
-plot_gd( gd_output, log=False, w=5, h=4, plot_title=True, plot_title_string="gradient descent", parameter_title=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel="gradient steps", show_ylabel=True, ylabel="objective", legend=False, per_step_alpha=0.25, per_step_color=None, per_step_label=None, per_epoch_color=None, per_epoch_label=None, ax=None)
+plot_gd(gd_output, log=False, w=5, h=4, plot_title=True, plot_title_string="gradient descent", hyperparm_vals=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel="gradient steps", show_ylabel=True, ylabel="objective", per_step_alpha=0.25, legend=False, per_step_label=None, per_epoch_label=None, per_step_color=None, per_epoch_color=None, ax=None)
 ```
 
-Descriptions coming later...
+Plot the output of the gradient descent algorithm [GD](#gd-function-gradient-descent) and the stochastic gradient descent algorithm [SGD](#sgd-function-stochastic-gradient-descent).
+
+#### Parameters
+
+Name | Type | Description
+| :- | :- | :- |
+| `gd_output` | [GD_output](#gd_output-class-container-class-for-output-of-algorithms) | Output produced by the [GD](#gd-function-gradient-descent) and [SGD](#sgd-function-stochastic-gradient-descent) functions.
+| `log` | `bool` | Boolean indicator whether to plot the logarithm of the objective function. Defaults to `False`.
+| `w` | `int` | Width of plot in inches. Defaults to `5`.
+| `h` | `int` | Height of the plot in inches. Defaults to `4`.
+| `plot_title` | `bool` | Boolean indicator whether to produce a plot title. Defaults to `True`.
+| `plot_title_string` | `str` | Title of plot. Defaults to `"gradient descent"`.
+| `hyperparm_vals` | `bool` | Boolean indicator whether to display the values of the hyperparameters for [GD](#gd-function-gradient-descent) or [SGD](#sgd-function-stochastic-gradient-descent). Defaults to `True`.
+| `show_step` | `bool` | Boolean indicator whether to plot the objective values per gradient step. Defaults to `True`.
+| `show_epoch` | `bool` | Boolean indicator whether to plot the mean objective values per epoch for [SGD](#sgd-function-stochastic-gradient-descent). Defaults to `True`.
+| `show_xlabel` | `bool` | Boolean indicator whether to show a label for the horizontal axis. Defaults to `True`.
+| `xlabel` | `str` | Label for the horizontal axis. Defaults to `"gradient steps"`.
+| `show_ylabel` | `bool` | Boolean indicator whether to show a label for the vertical axis. Defaults to `True`.
+| `ylabel` | `str` | Label for the vertical axis. Defaults to `"objective"`.
+| `per_step_alpha` | `float` | Alpha (opacity) value for the per-step objective plot. Defaults to `0.25`.
+| `legend` | `bool` | Boolean indicator whether to display a legend. Defaults to `False`.
+| `per_step_label` | `str` | Label for the per-step objective plot. Defaults to `None`.
+| `per_epoch_label` | `str` | Label for the per-epoch mean objective plot. Defaults to `None`.
+| `per_step_color` | `str` | Color for the per-step objective plot. Defaults to `None`, which uses the default color.
+| `per_epoch_color` | `str` | Color for the per-epoch mean objective plot. Defaults to `None`, which uses the default color.
+| `ax` | `Axes` | A matplotlib `Axes` object. Helpful in producing subplots. Defaults to `None`.

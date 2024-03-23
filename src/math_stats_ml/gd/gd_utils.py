@@ -58,19 +58,19 @@ def plot_gd(
     h=4,
     plot_title=True,
     plot_title_string="gradient descent",
-    parameter_title=True,
+    hyperparam_vals=True,
     show_step=True,
     show_epoch=True,
     show_xlabel=True,
     xlabel="gradient steps",
     show_ylabel=True,
     ylabel="objective",
-    legend=False,
     per_step_alpha=0.25,
-    per_step_color=None,
+    legend=False,
     per_step_label=None,
-    per_epoch_color=None,
     per_epoch_label=None,
+    per_step_color=None,
+    per_epoch_color=None,
     ax=None,
 ):
     if ax is None:
@@ -110,7 +110,7 @@ def plot_gd(
     if show_ylabel:
         ax.set_ylabel(ylabel)
 
-    if plot_title | parameter_title:
+    if plot_title | hyperparam_vals:
         if gd_output.type_flag == "gd":
             parameter_title_string = (
                 f"$\\alpha=${gd_output.lr}, $\\beta=${gd_output.decay_rate}"
@@ -118,7 +118,7 @@ def plot_gd(
         else:
             parameter_title_string = f"$\\alpha=${gd_output.lr}, $\\beta=${gd_output.decay_rate}, $k=${gd_output.batch_size}, $N=${gd_output.num_epochs}"
 
-        if plot_title & parameter_title:
+        if plot_title & hyperparam_vals:
             title_string = plot_title_string + "\n" + parameter_title_string
             ax.set_title(title_string)
         elif plot_title:
