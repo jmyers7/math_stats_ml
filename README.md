@@ -73,7 +73,9 @@ Name | Type | Description
 ### `SGD` function: Stochastic gradient descent
 
 ```python
-SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None, kind='sgd', beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=0, max_steps=-1, shuffle=True, random_state=None)
+SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None,
+kind='sgd', beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=0,
+max_steps=-1, shuffle=True, random_state=None)
 ```
 
 Implementation of both the vanilla stochastic gradient descent algorithm, and the ADAM optimization algorithm. The notation and terminology below is intended to match [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
