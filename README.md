@@ -140,6 +140,6 @@ Name | Type | Description
 | `legend` | `bool` | Boolean indicator whether to display a legend. Defaults to `False`.
 | `per_step_label` | `str` | Label for the per-step objective plot. Defaults to `None`.
 | `per_epoch_label` | `str` | Label for the per-epoch mean objective plot. Defaults to `None`.
-| `per_step_color` | `str` | Color for the per-step objective plot. Defaults to `None`, which uses the default color.
-| `per_epoch_color` | `str` | Color for the per-epoch mean objective plot. Defaults to `None`, which uses the default color.
+| `per_step_color` | `str` | Color for the per-step objective plot. Defaults to `None`, which uses the default matplotlib colors.
+| `per_epoch_color` | `str` | Color for the per-epoch mean objective plot. Defaults to `None`, which uses the default matplotlib colors.
 | `ax` | `Axes` | A matplotlib `Axes` object. Helpful in producing subplots. Defaults to `None`.
