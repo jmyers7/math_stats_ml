@@ -75,7 +75,8 @@ Name | Type | Description
 ```python
 SGD(L, init_parameters, X, lr, batch_size, num_epochs, y=None,
     kind='sgd', beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=0,
-    max_steps=-1, shuffle=True, random_state=None)
+    max_steps=-1, shuffle=True, random_state=None
+)
 ```
 
 Implementation of both the vanilla stochastic gradient descent algorithm, and the ADAM optimization algorithm. The notation and terminology below is intended to match [the book](https://mml.johnmyersmath.com/stats-book/chapters/11-optim.html#sgd-alg).
@@ -112,7 +113,8 @@ plot_gd(gd_output, log=False, w=5, h=4, plot_title=True,
     show_step=True, show_epoch=True, show_xlabel=True, xlabel="gradient steps",
     show_ylabel=True, ylabel="objective", per_step_alpha=0.25, legend=False,
     per_step_label=None, per_epoch_label=None, per_step_color=None,
-    per_epoch_color=None, ax=None)
+    per_epoch_color=None, ax=None
+)
 ```
 
 Plot the output of the gradient descent algorithm [GD](#gd-function-gradient-descent) and the stochastic gradient descent algorithm [SGD](#sgd-function-stochastic-gradient-descent).
