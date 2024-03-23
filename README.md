@@ -107,7 +107,12 @@ Name | Type | Description
 ### `plot_gd` function: plot the output of gradient descent
 
 ```python
-plot_gd(gd_output, log=False, w=5, h=4, plot_title=True, plot_title_string="gradient descent", hyperparm_vals=True, show_step=True, show_epoch=True, show_xlabel=True, xlabel="gradient steps", show_ylabel=True, ylabel="objective", per_step_alpha=0.25, legend=False, per_step_label=None, per_epoch_label=None, per_step_color=None, per_epoch_color=None, ax=None)
+plot_gd(gd_output, log=False, w=5, h=4, plot_title=True,
+plot_title_string="gradient descent", hyperparm_vals=True,
+show_step=True, show_epoch=True, show_xlabel=True, xlabel="gradient steps",
+show_ylabel=True, ylabel="objective", per_step_alpha=0.25, legend=False,
+per_step_label=None, per_epoch_label=None, per_step_color=None,
+per_epoch_color=None, ax=None)
 ```
 
 Plot the output of the gradient descent algorithm [GD](#gd-function-gradient-descent) and the stochastic gradient descent algorithm [SGD](#sgd-function-stochastic-gradient-descent).
