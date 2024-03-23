@@ -126,7 +126,7 @@ Name | Type | Description
 | `gd_output` | [GD_output](#gd_output-class-container-class-for-output-of-algorithms) | Output produced by the [GD](#gd-function-gradient-descent) and [SGD](#sgd-function-stochastic-gradient-descent) functions.
 | `log` | `bool` | Boolean indicator whether to plot the logarithm of the objective function. Defaults to `False`.
 | `w` | `int` | Width of plot in inches. Defaults to `5`.
-| `h` | `int` | Height of the plot in inches. Defaults to `4`.
+| `h` | `int` | Height of plot in inches. Defaults to `4`.
 | `plot_title` | `bool` | Boolean indicator whether to produce a plot title. Defaults to `True`.
 | `plot_title_string` | `str` | Title of plot. Defaults to `"gradient descent"`.
 | `hyperparm_vals` | `bool` | Boolean indicator whether to display the values of the hyperparameters for [GD](#gd-function-gradient-descent) or [SGD](#sgd-function-stochastic-gradient-descent). Defaults to `True`.
