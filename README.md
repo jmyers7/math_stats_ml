@@ -1,4 +1,4 @@
-# Utility functions for ["Mathematical Statistics with a View Toward Machine Learning"](https://mml.johnmyersmath.com/stats-book/index.html), by John Myers
+# Utility functions for ["Probability Theory with a View Toward Machine Learning"](https://mml.johnmyersmath.com/stats-book/index.html), by John Myers
 
 A Python package for all utility functions used in the book and programming assignments. To install, do the usual:
 
